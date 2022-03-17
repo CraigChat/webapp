@@ -109,8 +109,8 @@ export default function Dropdown({
                         <div className="flex items-center gap-1 text-sm sm:text-base">
                           {item.icon ? <Icon icon={item.icon} className="w-5 h-5 pointer-events-none" /> : ''}
                           <span className="block truncate font-medium">
-                            {item.title}
-                            {item.suffix ? <span className="font-normal"> {item.suffix}</span> : ''}
+                            {asT(t, item.title)}
+                            {item.suffix ? <span className="font-normal"> {asT(t, item.suffix)}</span> : ''}
                           </span>
                         </div>
 
