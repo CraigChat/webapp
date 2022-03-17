@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "DeepScan.vscode-deepscan",
+    "formulahendry.auto-rename-tag",
+    "EditorConfig.EditorConfig",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2020",
+    "inlineSourceMap": false,
+    "removeComments": true,
+    "outDir": "./"
+  },
+  "include": ["./awp.ts"],
+  "exclude": ["node_modules"]
+}
