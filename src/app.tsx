@@ -180,7 +180,9 @@ export class App extends Component<{}, AppState> {
         />
       );
     } else {
-      document.title = `▶️ ${this.state.recording.channelName} / ${this.state.recording.serverName} — Craig Webapp`;
+      document.title = `▶️ ${this.state.recording.channelName} / ${this.state.recording.serverName} — ${t(
+        'craigWebapp'
+      )}`;
       panel = <MonitoringPanel recording={this.state.recording} users={this.state.users} />;
     }
 
