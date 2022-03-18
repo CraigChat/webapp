@@ -58,7 +58,7 @@ export default function Dropdown({
           <div className={clsx(label ? 'mt-1' : '', 'mt-1 relative')}>
             <Listbox.Button
               className={clsx(
-                'relative text-sm sm:text-base bg-zinc-600 rounded-md shadow-sm pl-3 pr-12 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-teal-500 focus:border-teal-500',
+                'relative text-sm sm:text-base bg-zinc-600 rounded-md pl-3 pr-12 py-2 text-left cursor-default shadow-md focus:outline-none focus:ring-1 focus:ring-teal-500 focus:border-teal-500',
                 {
                   'opacity-75': disabled,
                   'w-full': full

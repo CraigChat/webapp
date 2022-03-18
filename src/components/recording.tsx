@@ -22,9 +22,10 @@ interface RecordingPanelProps {
   continuous: boolean;
   vad: boolean;
   users: AppUser[];
+  myId: number;
 }
 
-export function RecordingPanel({ recording, username, flac, continuous, vad, users }: RecordingPanelProps) {
+export function RecordingPanel({ recording, username, flac, continuous, vad, users, myId }: RecordingPanelProps) {
   const { t } = useTranslation();
   const [noiseSuppression, setNoiseSuppression] = useSyncedState(false, 'craigWebapp.noiseSuppression');
   const [mute, setMute] = useState(false);
@@ -38,30 +39,42 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
       <PanelHeader recording={recording} />
       <div class="flex justify-center items-center p-6 gap-4">
         {users.length > 0 ? (
-          users.map((user) => {
-            const discrim = user.nick.split('#').reverse()[0];
-            const username = user.nick.slice(0, -discrim.length - 1);
+          users
+            .filter((user) => user.id !== myId)
+            .map((user) => {
+              const discrim = user.nick.split('#').reverse()[0];
+              const username = user.nick.slice(0, -discrim.length - 1);
 
-            const tooltip = (
-              <p>
-                <span class="font-medium">{username}</span>
-                <span class="opacity-50">{discrim === 'web' ? ` ${t('rec.viaWeb')}` : `#${discrim}`}</span>
-              </p>
-            );
+              const tooltip = (
+                <p>
+                  <span class="font-medium">{username}</span>
+                  <span class="opacity-50">{discrim === 'web' ? ` ${t('rec.viaWeb')}` : `#${discrim}`}</span>
+                </p>
+              );
 
-            return (
-              <Tooltip key={user.id} html={tooltip}>
-                <div
-                  class={clsx(
-                    'rounded-full shadow p-3 sm:p-4 transition-colors',
-                    user.speaking ? 'bg-green-500' : 'bg-zinc-600'
+              return (
+                <Tooltip key={user.id} html={tooltip}>
+                  {user.avatar ? (
+                    <img
+                      src={user.avatar}
+                      class={clsx(
+                        'w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow transition-all border-green-500',
+                        user.speaking ? 'border-4' : ''
+                      )}
+                    />
+                  ) : (
+                    <div
+                      class={clsx(
+                        'rounded-full shadow p-3 transition-colors',
+                        user.speaking ? 'bg-green-500' : 'bg-zinc-600'
+                      )}
+                    >
+                      <Icon icon={micIcon} className="w-8 h-8 sm:w-10 sm:h-10" />
+                    </div>
                   )}
-                >
-                  <Icon icon={micIcon} className="w-8 h-8 sm:w-10 sm:h-10" />
-                </div>
-              </Tooltip>
-            );
-          })
+                </Tooltip>
+              );
+            })
         ) : (
           <span class="font-medium opacity-75">{t('rec.noUsersConnected')}</span>
         )}

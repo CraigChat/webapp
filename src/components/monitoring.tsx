@@ -32,9 +32,13 @@ export function MonitoringPanel({ recording, users }: MonitoringPanelProps) {
                   user.speaking ? 'bg-green-500' : ''
                 )}
               >
-                <div class="rounded-full shadow p-3 transition-colors bg-zinc-600">
-                  <Icon icon={micIcon} className="w-6 h-6" />
-                </div>
+                {user.avatar ? (
+                  <img src={user.avatar} class="w-12 h-12 rounded-full shadow" />
+                ) : (
+                  <div class="rounded-full shadow p-3 transition-colors bg-zinc-600">
+                    <Icon icon={micIcon} className="w-6 h-6" />
+                  </div>
+                )}
                 <span class="sm:text-xl">
                   <span class="font-medium">{username}</span>
                   <span class={clsx('transition-opacity', user.speaking ? 'opacity-75' : 'opacity-50')}>

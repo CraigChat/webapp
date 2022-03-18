@@ -1,3 +1,5 @@
+import { UserExtraType } from './audio/protocol';
+
 interface Events {
   recId: (id: number) => void;
   startTime: (time: number) => void;
@@ -6,6 +8,7 @@ interface Events {
   pong: (msg: DataView) => void;
   speech: (userTrack: number | null, status: boolean) => void;
   user: (track: number, nick: string, status: boolean) => void;
+  userExtra: (track: number, type: UserExtraType, data: string) => void;
   userMediaReady: () => void;
   userMediaStopped: () => void;
   vad: (on: boolean) => void;

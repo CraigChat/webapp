@@ -77,11 +77,14 @@ export function OnboardingPanel({
   if (recorder.state === RecorderState.REQUESTING_PERMISSION) {
     recorderDiv = <p>{t('onboarding.requesting')}</p>;
   } else if (recorder.state === RecorderState.ERROR) {
-    if (recorder.error && recorder.error.message === 'Permission denied') {
+    if (
+      recorder.error &&
+      (recorder.error.message === 'Permission denied' || recorder.error.message === 'Permission dismissed')
+    ) {
       recorderDiv = <RequestMicrophone />;
     } else {
       recorderDiv = (
-        <span class="mt-6 p-2 border-2 bg-opacity-25 rounded-md border-red-500 bg-red-500">
+        <span class="p-2 border-2 bg-opacity-25 rounded-md border-red-500 bg-red-500">
           <b>{t('onboarding.errors.audioPerm')}:</b> {recorder.error?.toString()}
         </span>
       );
@@ -106,7 +109,7 @@ export function OnboardingPanel({
         username: nickname,
         continuous,
         flac,
-        id: recording.connectionToken,
+        token: recording.connectionToken,
         onDisconnect
       });
     } else {
@@ -115,7 +118,7 @@ export function OnboardingPanel({
         username: nickname,
         continuous,
         flac,
-        id: recording.connectionToken,
+        token: recording.connectionToken,
         onDisconnect
       });
     }
@@ -139,7 +142,7 @@ export function OnboardingPanel({
             </span>
           </span>
           <span class="opacity-50">{t('in')}</span>
-          <span class="whitespace-nowrap sm:whitespace-normal sm:text-lg max-w-full text-ellipsis overflow-hidden">
+          <span class="whitespace-nowrap sm:whitespace-normal sm:text-lg max-w-full text-ellipsis overflow-hidden text-center">
             {recording.serverName}
           </span>
         </div>

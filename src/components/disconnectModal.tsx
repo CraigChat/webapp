@@ -70,7 +70,8 @@ export function Modal({ open, reason: reasonCode }: ModalProps) {
                   onClick={() => {
                     if (
                       webappReason === WebappOpCloseReason.SHARD_CLOSED ||
-                      webappReason === WebappOpCloseReason.INVALID_ID
+                      webappReason === WebappOpCloseReason.INVALID_ID ||
+                      webappReason === WebappOpCloseReason.RECORDING_ENDED
                     )
                       location.href = '/';
                     else location.reload();

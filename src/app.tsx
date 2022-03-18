@@ -15,6 +15,7 @@ import { Translation } from 'react-i18next';
 import Dropdown from './components/common/dropdown';
 import { languages } from './util/i18n';
 import { t } from 'i18next';
+import { UserExtraType } from './util/audio/protocol';
 
 export const logger = makeLogger('app');
 
@@ -22,6 +23,7 @@ export interface AppUser {
   id: number;
   nick: string;
   speaking: boolean;
+  avatar?: string;
 }
 
 interface AppState {
@@ -44,6 +46,7 @@ interface AppState {
   vad: boolean;
   rawVad: boolean;
   users: AppUser[];
+  myId: number;
 
   connected: boolean;
   connectionType: 'record' | 'monitor' | null;
@@ -75,6 +78,7 @@ export class App extends Component<{}, AppState> {
       vad: false,
       rawVad: false,
       users: [],
+      myId: -1,
 
       connected: false,
       connectionType: null
@@ -88,6 +92,7 @@ export class App extends Component<{}, AppState> {
     addListener('app', 'vad', (vad) => this.setState({ vad }));
     addListener('app', 'rawVad', (rawVad) => this.setState({ rawVad }));
     addListener('app', 'max', (val) => pushMax(val, this.state.vad, this.state.rawVad));
+    addListener('app', 'recId', (myId) => this.setState({ myId }));
     addListener('app', 'speech', (user, speaking) => {
       // if (!user && speaking) updateWaveRetroactive();
       if (user !== null) {
@@ -114,6 +119,16 @@ export class App extends Component<{}, AppState> {
       this.setState({
         users: [...otherUsers, { id: track, nick, speaking: false }]
       });
+    });
+    addListener('app', 'userExtra', (track, type, data) => {
+      if (!this.state.users.find((u) => u.id === track)) return;
+      if (type === UserExtraType.AVATAR) {
+        const users = this.state.users.map((u) => {
+          if (u.id === track) return { ...u, avatar: data };
+          return u;
+        });
+        this.setState({ users });
+      }
     });
   }
 
@@ -177,6 +192,7 @@ export class App extends Component<{}, AppState> {
           continuous={this.state.continuous}
           vad={this.state.vad}
           users={this.state.users}
+          myId={this.state.myId}
         />
       );
     } else {

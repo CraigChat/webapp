@@ -1,7 +1,15 @@
 import { decodeText, encodeText } from '..';
 import { emit } from '../events';
 import { makeLogger } from '../logger';
-import { ConnectionType, DataTypeFlag, EnnuicastrId, EnnuicastrInfo, EnnuicastrParts, Feature } from './protocol';
+import {
+  ConnectionType,
+  DataTypeFlag,
+  EnnuicastrId,
+  EnnuicastrInfo,
+  EnnuicastrParts,
+  Feature,
+  UserExtraType
+} from './protocol';
 import ReconnectableWebSocket from './reconnectableWS';
 
 export let pingSock: ReconnectableWebSocket | null = null;
@@ -30,7 +38,7 @@ export function bufferedAmount(): number {
 
 export interface ConnectOptions {
   url: string;
-  id: string;
+  token: string;
   username: string;
   continuous?: boolean;
   flac?: boolean;
@@ -38,7 +46,7 @@ export interface ConnectOptions {
 }
 
 // Connect to the server (our first step)
-export async function connect({ url, username, continuous, flac, id, onDisconnect }: ConnectOptions): Promise<void> {
+export async function connect({ url, username, continuous, flac, token, onDisconnect }: ConnectOptions): Promise<void> {
   isContinuous = continuous;
   const nickBuf = encodeText(username);
 
@@ -46,7 +54,7 @@ export async function connect({ url, username, continuous, flac, id, onDisconnec
   const connMsg = new DataView(new ArrayBuffer(EnnuicastrParts.login.length + nickBuf.length));
   connMsg.setUint32(0, EnnuicastrId.LOGIN, true);
   const flags = (flac ? DataTypeFlag.FLAC : DataTypeFlag.OPUS) | (continuous ? Feature.CONTINUOUS : 0);
-  new Uint8Array(connMsg.buffer).set(encodeText(id), EnnuicastrParts.login.id);
+  new Uint8Array(connMsg.buffer).set(encodeText(token), EnnuicastrParts.login.token);
   new Uint8Array(connMsg.buffer).set(nickBuf, EnnuicastrParts.login.length);
 
   connected = true;
@@ -78,12 +86,12 @@ export async function connect({ url, username, continuous, flac, id, onDisconnec
 }
 
 // Connect to the server as a monitor
-export async function connectMonitor({ url, username, id, onDisconnect }: ConnectOptions): Promise<void> {
+export async function connectMonitor({ url, username, token, onDisconnect }: ConnectOptions): Promise<void> {
   const nickBuf = encodeText(username);
   const connMsg = new DataView(new ArrayBuffer(EnnuicastrParts.login.length + nickBuf.length));
   connMsg.setUint32(0, EnnuicastrId.LOGIN, true);
   connMsg.setUint32(EnnuicastrParts.login.flags, ConnectionType.MONITOR | (DataTypeFlag.OPUS | 0), true);
-  new Uint8Array(connMsg.buffer).set(encodeText(id), EnnuicastrParts.login.id);
+  new Uint8Array(connMsg.buffer).set(encodeText(token), EnnuicastrParts.login.token);
   new Uint8Array(connMsg.buffer).set(nickBuf, EnnuicastrParts.login.length);
 
   connected = true;
@@ -191,6 +199,15 @@ function onDataSock(ev: MessageEvent) {
       break;
     }
 
+    case EnnuicastrId.USER_EXTRA: {
+      const key = msg.getUint32(EnnuicastrParts.userExtra.index, true);
+      const type: UserExtraType = msg.getUint32(EnnuicastrParts.userExtra.type, true);
+      const data = decodeText(msg.buffer.slice(EnnuicastrParts.userExtra.data));
+      logger.log('Got user extra:', { key, type, data });
+      emit('userExtra', key, type, data);
+      break;
+    }
+
     case EnnuicastrId.SPEECH: {
       const key = msg.getUint32(EnnuicastrParts.speech.index, true);
       const speaking = msg.getUint32(EnnuicastrParts.speech.status, true) === 1;
@@ -222,6 +239,15 @@ function onMonitorSock(ev: MessageEvent) {
       const nick = decodeText(msg.buffer.slice(EnnuicastrParts.user.nick));
       logger.log('Got user update:', { key, connected, nick });
       emit('user', key, nick, connected);
+      break;
+    }
+
+    case EnnuicastrId.USER_EXTRA: {
+      const key = msg.getUint32(EnnuicastrParts.userExtra.index, true);
+      const type: UserExtraType = msg.getUint32(EnnuicastrParts.userExtra.type, true);
+      const data = decodeText(msg.buffer.slice(EnnuicastrParts.userExtra.data));
+      logger.log('Got user extra:', { key, type, data });
+      emit('userExtra', key, type, data);
       break;
     }
 

@@ -20,12 +20,12 @@ export const EnnuicastrParts = {
   },
 
   /**
-   * id   rId      flags nick
+   * id   token    flags nick
    * XXXX XXXXXXXX XXXX  ->
    */
   login: {
     length: 16,
-    id: 4,
+    token: 4,
     flags: 12,
     nick: 16
   },
@@ -82,6 +82,17 @@ export const EnnuicastrParts = {
   },
 
   /**
+   * id   index type data
+   * XXXX XXXX  XXXX ->
+   */
+  userExtra: {
+    length: 12,
+    index: 4,
+    type: 8,
+    data: 12
+  },
+
+  /**
    * id   index status
    * XXXX XXXX  XXXX
    */
@@ -124,6 +135,10 @@ export enum Feature {
   // RTC = 0x200
 }
 
+export enum UserExtraType {
+  AVATAR = 0x0
+}
+
 export enum EnnuicastrId {
   // Good and evil
   ACK = 0x00,
@@ -144,6 +159,7 @@ export enum EnnuicastrId {
   // Monitoring
   USER = 0x40,
   SPEECH = 0x41,
+  USER_EXTRA = 0x42,
 
   // WebRTC signaling info and inter-client RTC messages
   RTC = 0x50,
@@ -169,23 +185,6 @@ export enum EnnuicastrInfo {
   START_TIME = 0x15,
   /* S->C, string: Inform the client of the name of this recording */
   REC_NAME = 0x16
-}
-
-export enum EnnuicastrMode {
-  /** Not yet recording */
-  INIT = 0x00,
-  /** Recording */
-  REC = 0x10,
-  /*
-   * The recording is finished or paused, but buffers are being
-   * emptied. That is, the server is accepting data, but the clients
-   * should not be sending *new* data.
-   */
-  BUFFERING = 0x18,
-  /** Paused (not presently used) */
-  PAUSED = 0x20,
-  /** Finished recording */
-  FINISHED = 0x30
 }
 
 export enum WebappOpCloseReason {
