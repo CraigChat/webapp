@@ -9,10 +9,11 @@ interface InputProps {
   value?: string;
   big?: boolean;
   maxLength?: number;
+  password?: boolean;
   setValue(value: string): void;
 }
 
-export function Input({ label, placeholder, disabled, error, big, maxLength, value, setValue }: InputProps) {
+export function Input({ label, placeholder, disabled, error, big, maxLength, password, value, setValue }: InputProps) {
   const ref = createRef();
   return (
     <div class="flex flex-col gap-2">
@@ -38,6 +39,7 @@ export function Input({ label, placeholder, disabled, error, big, maxLength, val
         placeholder={placeholder}
         ref={ref}
         maxLength={maxLength}
+        type={password ? 'password' : 'text'}
         onChange={(e) => setValue(e.currentTarget.value)}
       />
     </div>

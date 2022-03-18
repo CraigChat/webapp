@@ -114,10 +114,19 @@ export function LoginPanel({
           label={t('login.recId')}
           error={!!error}
           disabled={isLoading}
+          maxLength={10}
           value={recordingId}
           setValue={setRecordingId}
         />
-        <Input label={t('login.webKey')} error={!!error} disabled={isLoading} value={ennuiKey} setValue={setEnnuiKey} />
+        <Input
+          label={t('login.webKey')}
+          error={!!error}
+          disabled={isLoading}
+          maxLength={6}
+          value={ennuiKey}
+          setValue={setEnnuiKey}
+          password
+        />
         <Dropdown
           disabled={isLoading}
           items={servers}
