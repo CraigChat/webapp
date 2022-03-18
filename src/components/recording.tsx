@@ -38,7 +38,7 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
     <Panel sandwich>
       <PanelHeader recording={recording} />
       <div class="flex justify-center items-center p-6 gap-4">
-        {users.length > 0 ? (
+        {users.filter((user) => user.id !== myId).length > 0 ? (
           users
             .filter((user) => user.id !== myId)
             .map((user) => {
