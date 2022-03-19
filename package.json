@@ -11,7 +11,7 @@
   "scripts": {
     "dev": "vite",
     "dev:preview": "npm run build && npm run preview",
-    "build": "tsc && vite build && npm run build:awp",
+    "build": "npm run build:awp && tsc && vite build",
     "build:awp": "rollup -c",
     "preview": "vite preview",
     "lint": "npx eslint --ext .ts,.tsx .",
