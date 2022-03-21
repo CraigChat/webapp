@@ -1,7 +1,7 @@
 import AWPWorker from './awpWorker.js?worker';
 import { makeLogger } from '../logger';
 const logger = makeLogger('capture');
-const awpUrl = '/awp.js?v=4';
+const awpUrl = '/awp.js?v=__GIT_REV__';
 
 export interface CaptureOptions {
   context: AudioContext;
