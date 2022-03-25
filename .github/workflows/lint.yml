@@ -7,6 +7,8 @@ on:
       - ".prettierrc"
       - ".eslintignore"
       - ".github/workflows/lint.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
   pull_request_target:
   workflow_dispatch:
 
