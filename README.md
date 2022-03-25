@@ -7,7 +7,7 @@ The app is based off of [ennuicastr](https://github.com/ennuicastr/ennuicastr) w
 The Audio Worker Processor (AWP) is also built seperately to the `public` folder since vite was annoying about it.
 
 ### Development
-> Note: that web workers will not work within `pnpm dev` and will need to use `pnpm dev:preview` instead.
+> Note: that web workers will not work within `yarn dev` and will need to use `yarn dev:preview` instead.
 
 Running this app on localhost enables the "Local" server option.
 
