@@ -55,7 +55,7 @@ export async function start(opts: ConnectOptions) {
   await connect(opts);
   startLocalProcessing();
   await getStream();
-  await startEncoder(false, false);
+  await startEncoder(opts.flac, opts.continuous);
 }
 
 export async function stop() {
