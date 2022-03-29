@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { AppUser } from '../app';
 import { PanelHeader } from './common/panelHeader';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 interface MonitoringPanelProps {
   recording: Recording;
@@ -17,6 +18,12 @@ export function MonitoringPanel({ recording, users }: MonitoringPanelProps) {
 
   return (
     <Panel sandwich>
+      {/* @ts-ignore */}
+      <Helmet>
+        <title>
+          ▶️ {this.state.recording.channelName} / {this.state.recording.serverName} — {t('craigWebapp')}
+        </title>
+      </Helmet>
       <PanelHeader recording={recording} />
       <div class="flex flex-col justify-center items-center p-6 gap-4 w-full">
         {users.length > 0 ? (
