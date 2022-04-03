@@ -8,6 +8,7 @@ import Spinner from './common/spinner';
 import { getRecording, Recording } from '../util/api';
 import { logger } from '../app';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 export const servers: DropdownItem[] = [
   {
@@ -108,6 +109,10 @@ export function LoginPanel({
 
   return (
     <Panel>
+      {/* @ts-ignore */}
+      <Helmet>
+        <title>{t('craigWebapp')}</title>
+      </Helmet>
       <h1 class="text-3xl font-display text-center">{t('craigWebapp')}</h1>
       <div class="flex flex-col gap-4 w-full">
         <Input
