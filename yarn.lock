@@ -315,10 +315,10 @@
   dependencies:
     "@iconify/types" "^1.0.12"
 
-"@iconify-icons/twemoji@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@iconify-icons/twemoji/-/twemoji-1.2.2.tgz#4855fd7f415f0db71bf13b7a7479033ac776078a"
-  integrity sha512-h3XZ9JpXinuAOIhHawKK5qlpxdfQtkKcIvPkxEPM5SZOIAZ48YOey6F35rFczzY9mgwliYorGDfnq55NY4CLlQ==
+"@iconify-icons/twemoji@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@iconify-icons/twemoji/-/twemoji-1.2.3.tgz#987acc45d60bfca9f865751fd6602fe8e765783e"
+  integrity sha512-FIcr/Of9br3tFSZflG4pWSMfxsCblUFxGfZ4KTIqI4209UxWUN7jxFKmr9AOZpZNsPDTB+vg2lB8Bo78+wz/QQ==
   dependencies:
     "@iconify/types" "^1.0.12"
 
