@@ -32,7 +32,7 @@
     "@iconify-icons/bi": "^1.2.2",
     "@iconify-icons/ic": "^1.2.2",
     "@iconify-icons/twemoji": "^1.2.2",
-    "@iconify/react": "^3.1.4",
+    "@iconify/react": "^3.2.1",
     "@preact/preset-vite": "^2.1.5",
     "@rollup/plugin-commonjs": "^21.0.3",
     "@rollup/plugin-node-resolve": "^13.1.3",
