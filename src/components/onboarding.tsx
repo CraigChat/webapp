@@ -20,7 +20,6 @@ import ChannelIcon from './common/channelIcon';
 import { setUseNR } from '../util/audio/processing';
 import { connectMonitor } from '../util/audio/net';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet';
 
 interface OnboardingPanelProps {
   recording: Recording;
@@ -132,12 +131,6 @@ export function OnboardingPanel({
 
   return (
     <Panel sidePanel>
-      {/* @ts-ignore */}
-      <Helmet>
-        <title>
-          {this.state.recording.channelName} / {this.state.recording.serverName} — {t('craigWebapp')}
-        </title>
-      </Helmet>
       <div className="flex flex-col justify-center items-center relative bg-black bg-opacity-20 self-stretch w-full sm:w-48 flex-none p-3 gap-4 font-body">
         {recording.serverIcon ? <img src={recording.serverIcon} class="w-16 h-16 rounded-full" /> : ''}
         <div class="flex sm:flex-col justify-center items-center font-medium gap-2 sm:gap-0 w-full overflow-hidden">

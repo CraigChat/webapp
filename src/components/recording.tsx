@@ -14,7 +14,6 @@ import { setWaveformCanvas } from '../util/audio/waveform';
 import { AppUser } from '../app';
 import { PanelHeader } from './common/panelHeader';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet';
 
 interface RecordingPanelProps {
   recording: Recording;
@@ -37,11 +36,6 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
 
   return (
     <Panel sandwich>
-      <Helmet>
-        <title>
-          🔴 {this.state.recording.channelName} / {this.state.recording.serverName} — {t('craigWebapp')}
-        </title>
-      </Helmet>
       <PanelHeader recording={recording} />
       <div class="flex justify-center items-center p-6 gap-4">
         {users.filter((user) => user.id !== myId).length > 0 ? (
