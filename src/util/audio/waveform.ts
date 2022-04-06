@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { context, timeOffset, vadExtension } from '.';
 import { connected, transmitting } from './net';
 import { sentRecently } from './processing';

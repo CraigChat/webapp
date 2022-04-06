@@ -1,39 +1,34 @@
 import { Icon } from '@iconify/react';
 import backIcon from '@iconify-icons/bi/arrow-left-short';
-import Panel from './common/panel';
-import { Recording } from '../util/api';
-import { RecorderState, useRecorder } from '../util/recorder';
-import { RequestMicrophone } from './requestMicrophone';
-import { useEffect, useState } from 'preact/compat';
-import { Input } from './common/input';
-import Toggle from './common/toggle';
-import RadioButtons, { RadioButton } from './common/radioButtons';
-import recordIcon from '@iconify-icons/bi/mic-fill';
 import monitorIcon from '@iconify-icons/bi/card-checklist';
-import Button from './common/button';
-import Spinner from './common/spinner';
+import recordIcon from '@iconify-icons/bi/mic-fill';
 import clsx from 'clsx';
-import { start } from '../util/audio';
-import { useSyncedState } from '../util';
-import { servers } from './login';
-import ChannelIcon from './common/channelIcon';
-import { setUseNR } from '../util/audio/processing';
-import { connectMonitor } from '../util/audio/net';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'preact/compat';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
+
+import { useSyncedState } from '../util';
+import { Recording } from '../util/api';
+import { start } from '../util/audio';
+import { connectMonitor } from '../util/audio/net';
+import { setUseNR } from '../util/audio/processing';
+import { RecorderState, useRecorder } from '../util/recorder';
+import Button from './common/button';
+import ChannelIcon from './common/channelIcon';
+import { Input } from './common/input';
+import Panel from './common/panel';
+import RadioButtons, { RadioButton } from './common/radioButtons';
+import Spinner from './common/spinner';
+import Toggle from './common/toggle';
+import { servers } from './login';
+import { RequestMicrophone } from './requestMicrophone';
 
 interface OnboardingPanelProps {
   recording: Recording;
   server: string;
   hasConnected: boolean;
   onBack: () => void;
-  setAttributes: (
-    connectionType: string,
-    nickname: string,
-    flac: boolean,
-    continuous: boolean,
-    noiseSuppression: boolean
-  ) => void;
+  setAttributes: (connectionType: string, nickname: string, flac: boolean, continuous: boolean, noiseSuppression: boolean) => void;
   onDisconnect: (arg0: CloseEvent) => void;
 }
 
@@ -56,14 +51,7 @@ const modes: RadioButton[] = [
   }
 ];
 
-export function OnboardingPanel({
-  recording,
-  server,
-  hasConnected,
-  onBack,
-  setAttributes,
-  onDisconnect
-}: OnboardingPanelProps) {
+export function OnboardingPanel({ recording, server, hasConnected, onBack, setAttributes, onDisconnect }: OnboardingPanelProps) {
   const { t } = useTranslation();
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
@@ -78,10 +66,7 @@ export function OnboardingPanel({
   if (recorder.state === RecorderState.REQUESTING_PERMISSION) {
     recorderDiv = <p>{t('onboarding.requesting')}</p>;
   } else if (recorder.state === RecorderState.ERROR) {
-    if (
-      recorder.error &&
-      (recorder.error.message === 'Permission denied' || recorder.error.message === 'Permission dismissed')
-    ) {
+    if (recorder.error && (recorder.error.message === 'Permission denied' || recorder.error.message === 'Permission dismissed')) {
       recorderDiv = <RequestMicrophone />;
     } else {
       recorderDiv = (
@@ -144,9 +129,7 @@ export function OnboardingPanel({
           <span class="opacity-50">{t('onboarding.joining')}</span>
           <span class="sm:text-xl flex justify-center items-center gap-2 sm:w-full overflow-hidden">
             <ChannelIcon type={recording.channelType} className="inline w-5 h-5 flex-none" />
-            <span class="whitespace-nowrap sm:whitespace-normal max-w-full text-ellipsis overflow-hidden">
-              {recording.channelName}
-            </span>
+            <span class="whitespace-nowrap sm:whitespace-normal max-w-full text-ellipsis overflow-hidden">{recording.channelName}</span>
           </span>
           <span class="opacity-50">{t('in')}</span>
           <span class="whitespace-nowrap sm:whitespace-normal sm:text-lg max-w-full text-ellipsis overflow-hidden text-center">

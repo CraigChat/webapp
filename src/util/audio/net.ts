@@ -1,15 +1,7 @@
 import { decodeText, encodeText } from '..';
 import { emit } from '../events';
 import { makeLogger } from '../logger';
-import {
-  ConnectionType,
-  DataTypeFlag,
-  EnnuicastrId,
-  EnnuicastrInfo,
-  EnnuicastrParts,
-  Feature,
-  UserExtraType
-} from './protocol';
+import { ConnectionType, DataTypeFlag, EnnuicastrId, EnnuicastrInfo, EnnuicastrParts, Feature, UserExtraType } from './protocol';
 import ReconnectableWebSocket from './reconnectableWS';
 
 export let pingSock: ReconnectableWebSocket | null = null;

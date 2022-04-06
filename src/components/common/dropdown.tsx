@@ -1,11 +1,12 @@
-import { Fragment, h } from 'preact';
-import { useState } from 'preact/hooks';
 import { Listbox, Transition } from '@headlessui/react';
 import { Icon, IconifyIcon } from '@iconify/react';
-import checkIcon from '@iconify-icons/ic/baseline-check';
 import dropdownIcon from '@iconify-icons/ic/baseline-arrow-drop-down';
+import checkIcon from '@iconify-icons/ic/baseline-check';
 import clsx from 'clsx';
+import { Fragment, h } from 'preact';
+import { useState } from 'preact/hooks';
 import { useTranslation } from 'react-i18next';
+
 import { asT, StringT } from '../../util';
 
 export interface DropdownItem extends Record<string, any> {
@@ -27,17 +28,7 @@ interface DropdownProps {
   onSelect?(item: DropdownItem): any;
 }
 
-export default function Dropdown({
-  className,
-  label,
-  items,
-  selected: defaultSelected,
-  full,
-  right,
-  bottom,
-  disabled,
-  onSelect
-}: DropdownProps) {
+export default function Dropdown({ className, label, items, selected: defaultSelected, full, right, bottom, disabled, onSelect }: DropdownProps) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState(defaultSelected || items[0]);
 
@@ -50,11 +41,7 @@ export default function Dropdown({
     <Listbox value={selected} onChange={onSelectItem} disabled={disabled}>
       {({ open }) => (
         <div className={clsx('flex flex-col gap-1', className)}>
-          {label ? (
-            <Listbox.Label className="block text-sm font-medium font-display text-zinc-400">{label}</Listbox.Label>
-          ) : (
-            ''
-          )}
+          {label ? <Listbox.Label className="block text-sm font-medium font-display text-zinc-400">{label}</Listbox.Label> : ''}
           <div className={clsx(label ? 'mt-1' : '', 'mt-1 relative')}>
             <Listbox.Button
               className={clsx(
@@ -96,12 +83,7 @@ export default function Dropdown({
                 {items.map((item) => (
                   <Listbox.Option
                     key={item.value}
-                    className={({ active }) =>
-                      clsx(
-                        active ? 'text-white bg-teal-600' : '',
-                        'cursor-default select-none relative py-2 pl-3 pr-12'
-                      )
-                    }
+                    className={({ active }) => clsx(active ? 'text-white bg-teal-600' : '', 'cursor-default select-none relative py-2 pl-3 pr-12')}
                     value={item}
                   >
                     {({ selected, active }) => (
@@ -115,12 +97,7 @@ export default function Dropdown({
                         </div>
 
                         {selected ? (
-                          <span
-                            className={clsx(
-                              active ? 'text-white' : 'text-teal-600',
-                              'absolute inset-y-0 right-0 flex items-center pr-4'
-                            )}
-                          >
+                          <span className={clsx(active ? 'text-white' : 'text-teal-600', 'absolute inset-y-0 right-0 flex items-center pr-4')}>
                             <Icon icon={checkIcon} className="h-5 w-5" aria-hidden="true" />
                           </span>
                         ) : null}

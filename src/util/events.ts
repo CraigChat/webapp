@@ -49,7 +49,7 @@ export function emit<E extends keyof Events>(event: E, ...args: Parameters<Event
 }
 
 export function waitTill<E extends keyof Events>(event: E): Promise<void> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const listener = () => {
       removeListener(listener.toString(), event);
       resolve();

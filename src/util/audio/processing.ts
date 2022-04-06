@@ -1,6 +1,6 @@
-import { setLastSentTime, lastSentTime, context, stream, vadOn, setRawVadOn, setVadOn } from '.';
 import { addListener, emit, removeListener, waitTill } from '../events';
 import { makeLogger } from '../logger';
+import { context, lastSentTime, setLastSentTime, setRawVadOn, setVadOn, stream, vadOn } from '.';
 import { createCapture } from './capture';
 
 export let sentRecently = false;

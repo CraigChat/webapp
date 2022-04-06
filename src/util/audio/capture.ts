@@ -1,5 +1,6 @@
-import AWPWorker from './awpWorker.js?worker';
 import { makeLogger } from '../logger';
+import AWPWorker from './awpWorker.js?worker';
+
 const logger = makeLogger('capture');
 const awpUrl = '/awp.js?v=__GIT_REV__';
 
@@ -99,13 +100,7 @@ export async function captureAWP({ context, stream, command, outStream }: Captur
   };
 }
 
-export async function captureScriptProcessor({
-  command,
-  context,
-  stream,
-  bufferSize,
-  outStream
-}: CaptureOptions): Promise<CaptureResult> {
+export async function captureScriptProcessor({ command, context, stream, bufferSize, outStream }: CaptureOptions): Promise<CaptureResult> {
   const node = context.createScriptProcessor(bufferSize || 4096);
   const awpWorker = new AWPWorker({ type: 'classic' });
 

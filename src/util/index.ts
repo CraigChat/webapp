@@ -38,9 +38,7 @@ export function bytesToRepr(x: number): string {
 }
 
 export function useSyncedState<T = any>(defaultState: T, key: string): [T, StateUpdater<T>] {
-  const [val, setVal] = useState(
-    localStorage.getItem(key) ? (JSON.parse(localStorage.getItem(key)) as any as T) : defaultState
-  );
+  const [val, setVal] = useState(localStorage.getItem(key) ? (JSON.parse(localStorage.getItem(key)) as any as T) : defaultState);
   useEffect(() => localStorage.setItem(key, JSON.stringify(val)), [val, key]);
   return [val, setVal];
 }
