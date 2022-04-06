@@ -1,7 +1,6 @@
 import { Icon } from '@iconify/react';
 import micIcon from '@iconify-icons/bi/mic-fill';
 import clsx from 'clsx';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import { AppUser } from '../app';
@@ -19,12 +18,6 @@ export function MonitoringPanel({ recording, users }: MonitoringPanelProps) {
 
   return (
     <Panel sandwich>
-      {/* @ts-ignore */}
-      <Helmet>
-        <title>
-          ▶️ {this.state.recording.channelName} / {this.state.recording.serverName} — {t('craigWebapp')}
-        </title>
-      </Helmet>
       <PanelHeader recording={recording} />
       <div class="flex flex-col justify-center items-center p-6 gap-4 w-full">
         {users.length > 0 ? (

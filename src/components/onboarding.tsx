@@ -4,7 +4,6 @@ import monitorIcon from '@iconify-icons/bi/card-checklist';
 import recordIcon from '@iconify-icons/bi/mic-fill';
 import clsx from 'clsx';
 import { useEffect, useState } from 'preact/compat';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import { useSyncedState } from '../util';
@@ -117,12 +116,6 @@ export function OnboardingPanel({ recording, server, hasConnected, onBack, setAt
 
   return (
     <Panel sidePanel>
-      {/* @ts-ignore */}
-      <Helmet>
-        <title>
-          {this.state.recording.channelName} / {this.state.recording.serverName} — {t('craigWebapp')}
-        </title>
-      </Helmet>
       <div className="flex flex-col justify-center items-center relative bg-black bg-opacity-20 self-stretch w-full sm:w-48 flex-none p-3 gap-4 font-body">
         {recording.serverIcon ? <img src={recording.serverIcon} class="w-16 h-16 rounded-full" /> : ''}
         <div class="flex sm:flex-col justify-center items-center font-medium gap-2 sm:gap-0 w-full overflow-hidden">

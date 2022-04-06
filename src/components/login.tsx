@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'preact/compat';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import { logger } from '../app';
@@ -110,10 +109,6 @@ export function LoginPanel({
 
   return (
     <Panel>
-      {/* @ts-ignore */}
-      <Helmet>
-        <title>{t('craigWebapp')}</title>
-      </Helmet>
       <h1 class="text-3xl font-display text-center">{t('craigWebapp')}</h1>
       <div class="flex flex-col gap-4 w-full">
         <Input label={t('login.recId')} error={!!error} disabled={isLoading} maxLength={10} value={recordingId} setValue={setRecordingId} />
