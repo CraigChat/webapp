@@ -6,11 +6,7 @@ export default class ReconnectableWebSocket {
   promise: Promise<unknown>;
   keepaliveTimeout: null | number;
 
-  constructor(
-    url: string,
-    closeHandler: (arg0: CloseEvent) => unknown,
-    connecter: (arg0: WebSocket) => Promise<unknown>
-  ) {
+  constructor(url: string, closeHandler: (arg0: CloseEvent) => unknown, connecter: (arg0: WebSocket) => Promise<unknown>) {
     this.url = url;
     this.closeHandler = closeHandler;
     this.connecter = connecter;

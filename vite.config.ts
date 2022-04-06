@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
-import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import { execSync } from 'child_process';
+import { defineConfig } from 'vite';
 
 let revision = Date.now().toString(36);
 try {

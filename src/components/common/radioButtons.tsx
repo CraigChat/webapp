@@ -1,8 +1,9 @@
-import { useState } from 'preact/hooks';
 import { RadioGroup } from '@headlessui/react';
 import { Icon, IconifyIcon } from '@iconify/react';
 import clsx from 'clsx';
+import { useState } from 'preact/hooks';
 import { useTranslation } from 'react-i18next';
+
 import { asT, StringT } from '../../util';
 
 export interface RadioButton extends Record<string, any> {
@@ -21,14 +22,7 @@ interface RadioButtonsProps {
   onSelect?(item: RadioButton): any;
 }
 
-export default function RadioButtons({
-  className,
-  label,
-  items,
-  selected: defaultSelected,
-  disabled,
-  onSelect
-}: RadioButtonsProps) {
+export default function RadioButtons({ className, label, items, selected: defaultSelected, disabled, onSelect }: RadioButtonsProps) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState(defaultSelected || items[0]);
 
@@ -43,11 +37,7 @@ export default function RadioButtons({
 
   return (
     <RGroup value={selected} onChange={onSelectItem} disabled={disabled} className={className}>
-      {label ? (
-        <RadioGroup.Label className="block text-sm font-medium font-display text-zinc-400">{label}</RadioGroup.Label>
-      ) : (
-        ''
-      )}
+      {label ? <RadioGroup.Label className="block text-sm font-medium font-display text-zinc-400">{label}</RadioGroup.Label> : ''}
       <div className="space-y-2">
         {items.map((item) => (
           <RadioGroup.Option
@@ -61,6 +51,7 @@ export default function RadioButtons({
               )
             }
           >
+            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
             {({ active, checked }) => (
               <div className="flex gap-4 w-full items-center">
                 {item.icon ? <Icon icon={item.icon} className="w-8 h-8" /> : ''}
@@ -72,10 +63,7 @@ export default function RadioButtons({
                       </Label>
                       {item.description ? (
                         // @ts-ignore
-                        <RadioGroup.Description
-                          as="span"
-                          className={clsx('inline', checked ? 'text-teal-100' : 'text-zinc-300')}
-                        >
+                        <RadioGroup.Description as="span" className={clsx('inline', checked ? 'text-teal-100' : 'text-zinc-300')}>
                           {asT(t, item.description)}
                         </RadioGroup.Description>
                       ) : (

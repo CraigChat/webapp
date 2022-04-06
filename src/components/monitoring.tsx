@@ -1,11 +1,12 @@
-import Panel from './common/panel';
-import { Recording } from '../util/api';
-import micIcon from '@iconify-icons/bi/mic-fill';
 import { Icon } from '@iconify/react';
+import micIcon from '@iconify-icons/bi/mic-fill';
 import clsx from 'clsx';
-import { AppUser } from '../app';
-import { PanelHeader } from './common/panelHeader';
 import { useTranslation } from 'react-i18next';
+
+import { AppUser } from '../app';
+import { Recording } from '../util/api';
+import Panel from './common/panel';
+import { PanelHeader } from './common/panelHeader';
 
 interface MonitoringPanelProps {
   recording: Recording;
@@ -27,10 +28,7 @@ export function MonitoringPanel({ recording, users }: MonitoringPanelProps) {
             return (
               <div
                 key={user.id}
-                class={clsx(
-                  'flex items-center w-full gap-2 p-3 rounded transition-colors bg-opacity-60',
-                  user.speaking ? 'bg-green-500' : ''
-                )}
+                class={clsx('flex items-center w-full gap-2 p-3 rounded transition-colors bg-opacity-60', user.speaking ? 'bg-green-500' : '')}
               >
                 {user.avatar ? (
                   <img src={user.avatar} class="w-12 h-12 rounded-full shadow" />

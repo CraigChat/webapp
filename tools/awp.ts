@@ -63,6 +63,7 @@ class WorkerProcessor extends AudioWorkletProcessor {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   process(inputs: Float32Array[][], outputs: Float32Array[][], parameters: Record<string, Float32Array>) {
     if (!this.workerPort || inputs.length === 0 || inputs[0].length === 0) return true;
 
@@ -72,11 +73,8 @@ class WorkerProcessor extends AudioWorkletProcessor {
       console.log('AWP: Setting up incoming packets, using shared memory:', this.canShared);
       const chans = inputs[0].length;
       this.incoming = [];
-      for (let i = 0; i < chans; i++) {
-        this.incoming.push(
-          new Float32Array(this.canShared ? new SharedArrayBuffer(BUFFER_SIZE * 4) : new ArrayBuffer(BUFFER_SIZE * 4))
-        );
-      }
+      for (let i = 0; i < chans; i++)
+        this.incoming.push(new Float32Array(this.canShared ? new SharedArrayBuffer(BUFFER_SIZE * 4) : new ArrayBuffer(BUFFER_SIZE * 4)));
       this.incomingRW = new Int32Array(this.canShared ? new SharedArrayBuffer(8) : new ArrayBuffer(8));
 
       if (this.canShared) {

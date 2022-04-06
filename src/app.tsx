@@ -1,21 +1,21 @@
 import { Component } from 'preact';
-import { LoginPanel } from './components/login';
-import { Modal } from './components/disconnectModal';
-import { OnboardingPanel } from './components/onboarding';
-import { Recording } from './util/api';
-import { addListener, removeAllListenersFromKey, removeListener } from './util/events';
-import { RecordingPanel } from './components/recording';
-import { pushMax } from './util/audio/waveform';
-import { capture } from './util/audio';
-import { procInterval } from './util/audio/processing';
-import { makeLogger } from './util/logger';
-import { MonitoringPanel } from './components/monitoring';
-import { dataSock, monitorSock, pingSock } from './util/audio/net';
 import { Translation } from 'react-i18next';
+
 import Dropdown from './components/common/dropdown';
-import { languages } from './util/i18n';
-import { t } from 'i18next';
+import { Modal } from './components/disconnectModal';
+import { LoginPanel } from './components/login';
+import { MonitoringPanel } from './components/monitoring';
+import { OnboardingPanel } from './components/onboarding';
+import { RecordingPanel } from './components/recording';
+import { Recording } from './util/api';
+import { capture } from './util/audio';
+import { dataSock, monitorSock, pingSock } from './util/audio/net';
+import { procInterval } from './util/audio/processing';
 import { UserExtraType } from './util/audio/protocol';
+import { pushMax } from './util/audio/waveform';
+import { addListener, removeAllListenersFromKey, removeListener } from './util/events';
+import { languages } from './util/i18n';
+import { makeLogger } from './util/logger';
 
 export const logger = makeLogger('app');
 
@@ -52,7 +52,7 @@ interface AppState {
   connectionType: 'record' | 'monitor' | null;
 }
 
-export class App extends Component<{}, AppState> {
+export class App extends Component<Record<string, never>, AppState> {
   constructor() {
     super();
 
@@ -155,8 +155,7 @@ export class App extends Component<{}, AppState> {
   render() {
     let panel = null;
 
-    if (!this.state.recording) {
-      document.title = t('craigWebapp');
+    if (!this.state.recording)
       panel = (
         <LoginPanel
           recordingId={this.state.recordingId}
@@ -168,8 +167,7 @@ export class App extends Component<{}, AppState> {
           setRecording={(recording: Recording, server: string) => this.setState({ recording, server })}
         />
       );
-    } else if (!this.state.connected) {
-      document.title = `${this.state.recording.channelName} / ${this.state.recording.serverName} — ${t('craigWebapp')}`;
+    else if (!this.state.connected)
       panel = (
         <OnboardingPanel
           recording={this.state.recording}
@@ -182,8 +180,7 @@ export class App extends Component<{}, AppState> {
           }
         />
       );
-    } else if (this.state.connected && this.state.connectionType === 'record') {
-      document.title = `${this.state.recording.channelName} / ${this.state.recording.serverName} — ${t('craigWebapp')}`;
+    else if (this.state.connected && this.state.connectionType === 'record')
       panel = (
         <RecordingPanel
           recording={this.state.recording}
@@ -195,12 +192,7 @@ export class App extends Component<{}, AppState> {
           myId={this.state.myId}
         />
       );
-    } else {
-      document.title = `▶️ ${this.state.recording.channelName} / ${this.state.recording.serverName} — ${t(
-        'craigWebapp'
-      )}`;
-      panel = <MonitoringPanel recording={this.state.recording} users={this.state.users} />;
-    }
+    else panel = <MonitoringPanel recording={this.state.recording} users={this.state.users} />;
 
     return (
       <Translation>

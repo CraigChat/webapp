@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'preact/compat';
-import { Input } from './common/input';
-import Dropdown, { DropdownItem } from './common/dropdown';
-import Button from './common/button';
-import Panel from './common/panel';
-import LinkButton from './common/linkButton';
-import Spinner from './common/spinner';
-import { getRecording, Recording } from '../util/api';
-import { logger } from '../app';
 import { useTranslation } from 'react-i18next';
+
+import { logger } from '../app';
+import { getRecording, Recording } from '../util/api';
+import Button from './common/button';
+import Dropdown, { DropdownItem } from './common/dropdown';
+import { Input } from './common/input';
+import LinkButton from './common/linkButton';
+import Panel from './common/panel';
+import Spinner from './common/spinner';
 
 export const servers: DropdownItem[] = [
   {
@@ -110,32 +111,9 @@ export function LoginPanel({
     <Panel>
       <h1 class="text-3xl font-display text-center">{t('craigWebapp')}</h1>
       <div class="flex flex-col gap-4 w-full">
-        <Input
-          label={t('login.recId')}
-          error={!!error}
-          disabled={isLoading}
-          maxLength={10}
-          value={recordingId}
-          setValue={setRecordingId}
-        />
-        <Input
-          label={t('login.webKey')}
-          error={!!error}
-          disabled={isLoading}
-          maxLength={6}
-          value={ennuiKey}
-          setValue={setEnnuiKey}
-          password
-        />
-        <Dropdown
-          disabled={isLoading}
-          items={servers}
-          label={t('login.server')}
-          className="w-full"
-          full
-          selected={server}
-          onSelect={setServer}
-        />
+        <Input label={t('login.recId')} error={!!error} disabled={isLoading} maxLength={10} value={recordingId} setValue={setRecordingId} />
+        <Input label={t('login.webKey')} error={!!error} disabled={isLoading} maxLength={6} value={ennuiKey} setValue={setEnnuiKey} password />
+        <Dropdown disabled={isLoading} items={servers} label={t('login.server')} className="w-full" full selected={server} onSelect={setServer} />
       </div>
       <div class="flex flex-col gap-2 items-center">
         {error ? <span class="text-red-500">{error}</span> : ''}

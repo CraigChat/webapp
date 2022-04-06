@@ -1,7 +1,8 @@
-import Button from '../common/button';
-import { Recording } from '../../util/api';
-import ChannelIcon from '../common/channelIcon';
 import { useTranslation } from 'react-i18next';
+
+import { Recording } from '../../util/api';
+import Button from '../common/button';
+import ChannelIcon from '../common/channelIcon';
 
 interface MonitoringPanelProps {
   recording: Recording;

@@ -2,17 +2,7 @@ import { bytesToRepr } from '..';
 import { addListener, emit } from '../events';
 import { makeLogger } from '../logger';
 import { CaptureResult, createCapture } from './capture';
-import {
-  bufferedAmount,
-  connect,
-  ConnectOptions,
-  dataSock,
-  errorHandler,
-  flacInfo,
-  ping,
-  pingSock,
-  setTransmitting
-} from './net';
+import { bufferedAmount, connect, ConnectOptions, dataSock, errorHandler, flacInfo, ping, pingSock, setTransmitting } from './net';
 import { startLocalProcessing } from './processing';
 import { EnnuicastrId, EnnuicastrInfo, EnnuicastrParts } from './protocol';
 
@@ -125,14 +115,10 @@ export async function startEncoder(flac = false, continuous = false) {
     // Set zero packet
     switch (sampleRate) {
       case 44100:
-        zeroPacket = new Uint8Array([
-          0xff, 0xf8, 0x79, 0x0c, 0x00, 0x03, 0x71, 0x56, 0x00, 0x00, 0x00, 0x00, 0x63, 0xc5
-        ]);
+        zeroPacket = new Uint8Array([0xff, 0xf8, 0x79, 0x0c, 0x00, 0x03, 0x71, 0x56, 0x00, 0x00, 0x00, 0x00, 0x63, 0xc5]);
         break;
       default:
-        zeroPacket = new Uint8Array([
-          0xff, 0xf8, 0x7a, 0x0c, 0x00, 0x03, 0xbf, 0x94, 0x00, 0x00, 0x00, 0x00, 0xb1, 0xca
-        ]);
+        zeroPacket = new Uint8Array([0xff, 0xf8, 0x7a, 0x0c, 0x00, 0x03, 0xbf, 0x94, 0x00, 0x00, 0x00, 0x00, 0xb1, 0xca]);
     }
   }
 

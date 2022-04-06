@@ -4,6 +4,7 @@ const libavPath = '/assets/libav-2.5.4.4-ennuicastr.js';
 const vadPath = '/assets/vad-m.wasm.js';
 const ncWasmPath = '/assets/noise-repellent-m.wasm.js';
 const ncPath = '/assets/noise-repellent-m.js';
+
 const logger = makeLogger('AWP Worker');
 
 // import libavPath from 'craig-webapp-tools/libav/libav-2.5.4.4-ennuicastr.js?url';
@@ -37,7 +38,7 @@ onmessage = function(ev) {
 };
 `;
 
-function waitTillPropExists(obj: any, name: string, timeout: number = 1000) {
+function waitTillPropExists(obj: any, name: string, timeout = 1000) {
   const start = Date.now();
   while (!obj[name] && Date.now() - start < timeout) {
     // Wait
@@ -467,10 +468,7 @@ function doFilter(msg: any) {
       // We must be over the floor...
       if (relVolume >= triggerVadFloor) {
         // And at least 1/32nd way to the ceiling
-        if (
-          triggerVadCeil < triggerVadFloor * 2 ||
-          relVolume - triggerVadFloor >= (triggerVadCeil - triggerVadFloor) / 32
-        ) {
+        if (triggerVadCeil < triggerVadFloor * 2 || relVolume - triggerVadFloor >= (triggerVadCeil - triggerVadFloor) / 32) {
           vadSet = true;
         }
       }

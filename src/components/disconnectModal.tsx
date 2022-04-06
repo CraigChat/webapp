@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'preact';
 import { useTranslation } from 'react-i18next';
+
 import { WebappOpCloseReason } from '../util/audio/protocol';
 import Button from './common/button';
 

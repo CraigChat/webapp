@@ -1,16 +1,15 @@
+import { IconifyIcon } from '@iconify/react';
+import deFlag from '@iconify-icons/twemoji/flag-for-germany';
+import arFlag from '@iconify-icons/twemoji/flag-for-saudi-arabia';
+import esFlag from '@iconify-icons/twemoji/flag-for-spain';
+import enFlag from '@iconify-icons/twemoji/flag-for-united-states';
+import testFlag from '@iconify-icons/twemoji/test-tube';
+import unknownFlag from '@iconify-icons/twemoji/white-question-mark';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { IconifyIcon } from '@iconify/react';
 
 const modules = import.meta.glob('../../locale/**/webapp.json', { assert: { type: 'json' } });
 let locales: any = {};
-
-import unknownFlag from '@iconify-icons/twemoji/white-question-mark';
-import testFlag from '@iconify-icons/twemoji/test-tube';
-import enFlag from '@iconify-icons/twemoji/flag-for-united-states';
-import esFlag from '@iconify-icons/twemoji/flag-for-spain';
-import deFlag from '@iconify-icons/twemoji/flag-for-germany';
-import arFlag from '@iconify-icons/twemoji/flag-for-saudi-arabia';
 const langFlagMap: { [key: string]: IconifyIcon } = {
   en: enFlag,
   es: esFlag,
@@ -54,9 +53,7 @@ function detectLang() {
 }
 
 export async function loadI18n() {
-  const localePairs: [string, any][] = await Promise.all(
-    Object.keys(modules).map(async (path) => [path.split('/')[3], await modules[path]()])
-  );
+  const localePairs: [string, any][] = await Promise.all(Object.keys(modules).map(async (path) => [path.split('/')[3], await modules[path]()]));
   locales = localePairs.reduce((acc, [path, json]) => ({ ...acc, [path]: { webapp: json.default } }), {});
   languages = Object.keys(locales).map((lang) => ({
     value: lang,

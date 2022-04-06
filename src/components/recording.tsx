@@ -1,19 +1,20 @@
-import Panel from './common/panel';
-import { Recording } from '../util/api';
-import { useSyncedState } from '../util';
+import { Icon } from '@iconify/react';
 import micIcon from '@iconify-icons/bi/mic-fill';
 import micMuteIcon from '@iconify-icons/bi/mic-mute-fill';
-import { Icon } from '@iconify/react';
 import clsx from 'clsx';
 import { useEffect, useState } from 'preact/hooks';
-import { toggleMute } from '../util/audio';
-import Toggle from './common/toggle';
+import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'react-tippy';
+
+import { AppUser } from '../app';
+import { useSyncedState } from '../util';
+import { Recording } from '../util/api';
+import { toggleMute } from '../util/audio';
 import { setUseNR } from '../util/audio/processing';
 import { setWaveformCanvas } from '../util/audio/waveform';
-import { AppUser } from '../app';
+import Panel from './common/panel';
 import { PanelHeader } from './common/panelHeader';
-import { useTranslation } from 'react-i18next';
+import Toggle from './common/toggle';
 
 interface RecordingPanelProps {
   recording: Recording;
@@ -57,18 +58,10 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
                   {user.avatar ? (
                     <img
                       src={user.avatar}
-                      class={clsx(
-                        'w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow transition-all border-green-500',
-                        user.speaking ? 'border-4' : ''
-                      )}
+                      class={clsx('w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow transition-all border-green-500', user.speaking ? 'border-4' : '')}
                     />
                   ) : (
-                    <div
-                      class={clsx(
-                        'rounded-full shadow p-3 transition-colors',
-                        user.speaking ? 'bg-green-500' : 'bg-zinc-600'
-                      )}
-                    >
+                    <div class={clsx('rounded-full shadow p-3 transition-colors', user.speaking ? 'bg-green-500' : 'bg-zinc-600')}>
                       <Icon icon={micIcon} className="w-8 h-8 sm:w-10 sm:h-10" />
                     </div>
                   )}
@@ -86,27 +79,20 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
             <span class="max-w-full text-ellipsis overflow-hidden">{username}</span>
           </div>
           <div class="flex gap-2">
-            {flac ? (
-              <span class="bg-gradient-to-b from-amber-500 to-orange-500 text-black rounded-full px-3 py-1">FLAC</span>
-            ) : null}
+            {flac ? <span class="bg-gradient-to-b from-amber-500 to-orange-500 text-black rounded-full px-3 py-1">FLAC</span> : null}
             {continuous ? (
-              <span class="bg-gradient-to-b from-green-500 to-emerald-500 text-black rounded-full px-3 py-1">
-                {t('rec.continuous')}
-              </span>
+              <span class="bg-gradient-to-b from-green-500 to-emerald-500 text-black rounded-full px-3 py-1">{t('rec.continuous')}</span>
             ) : null}
           </div>
         </div>
         <div class="flex gap-2 justify-between items-center w-full">
           <Tooltip title={t(`rec.${mute ? 'unmute' : 'mute'}`)} className="flex-none">
             <button
-              class={clsx(
-                'rounded-full shadow p-3 sm:p-4 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-60',
-                {
-                  'bg-green-500 hover:bg-green-400': (vad || continuous) && !mute,
-                  'bg-green-800 hover:bg-green-700': !vad && !continuous && !mute,
-                  'bg-red-500 hover:bg-red-400': mute
-                }
-              )}
+              class={clsx('rounded-full shadow p-3 sm:p-4 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-60', {
+                'bg-green-500 hover:bg-green-400': (vad || continuous) && !mute,
+                'bg-green-800 hover:bg-green-700': !vad && !continuous && !mute,
+                'bg-red-500 hover:bg-red-400': mute
+              })}
               onClick={() => setMute(!mute)}
             >
               <Icon icon={mute ? micMuteIcon : micIcon} className="w-8 h-8 sm:w-10 sm:h-10" />
@@ -114,12 +100,7 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
           </Tooltip>
           <canvas class="flex-1 h-16" ref={setCanvas} />
         </div>
-        <Toggle
-          label={t('options.nr.title')}
-          className="w-full"
-          checked={noiseSuppression}
-          onToggle={setNoiseSuppression}
-        />
+        <Toggle label={t('options.nr.title')} className="w-full" checked={noiseSuppression} onToggle={setNoiseSuppression} />
       </div>
     </Panel>
   );
