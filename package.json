@@ -44,7 +44,7 @@
     "eslint-config-snazzah": "^1.1.0",
     "i18next": "^21.6.15",
     "react-i18next": "^11.16.5",
-    "rollup": "^2.70.0",
+    "rollup": "^2.70.2",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.5.4",
     "vite": "https://github.com/Snazzah/vite-worker-fix"
