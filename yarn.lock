@@ -315,12 +315,12 @@
   dependencies:
     "@iconify/types" "^1.0.12"
 
-"@iconify-icons/ic@^1.2.2":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@iconify-icons/ic/-/ic-1.2.3.tgz#4e56d6b811d0cf96c41aaeba8df9b974fb93fc97"
-  integrity sha512-SM3xwhZzOSCuIJ3yrFraazFIRgmzBVkqXtqjSh01Zyc2h1A0M3fTIk3i+kBpyymy9VgCZyXrluZxhcOLd/cABA==
+"@iconify-icons/ic@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@iconify-icons/ic/-/ic-1.2.4.tgz#fe5b8f9f2eb4f36cc64d9a29a92bfbfbd63590e1"
+  integrity sha512-eGlOVK5F1DpWCliUlniyg0ZVazfPiPCg/i07I/f8EtRI6kjxxaI1l0lbxFPyIXY+D1TYV/xzVojlKLADjNAZyQ==
   dependencies:
-    "@iconify/types" "^1.0.12"
+    "@iconify/types" "^1.1.0"
 
 "@iconify-icons/twemoji@^1.2.3":
   version "1.2.3"
@@ -334,7 +334,7 @@
   resolved "https://registry.yarnpkg.com/@iconify/react/-/react-3.2.1.tgz#d18da31cec58c1aa8fdf4def451cc7e3196d88de"
   integrity sha512-yKzixjC9ct9RC/aSGo1OGxkG2rpfhlr/urRz6k2YZlIBzn92PBTlqtSx8o8dFYEorr3eUFSCBZFzBy1yw5jsAA==
 
-"@iconify/types@^1.0.12":
+"@iconify/types@^1.0.12", "@iconify/types@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@iconify/types/-/types-1.1.0.tgz#dc15fc988b1b3fd558dd140a24ede7e0aac11280"
   integrity sha512-Jh0llaK2LRXQoYsorIH8maClebsnzTcve+7U3rQUSnC11X4jtPnFuyatqFLvMxZ8MLG8dB4zfHsbPfuvxluONw==
