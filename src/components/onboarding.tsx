@@ -11,7 +11,7 @@ import { Recording } from '../util/api';
 import { start } from '../util/audio';
 import { connectMonitor } from '../util/audio/net';
 import { setUseNR } from '../util/audio/processing';
-import { RecorderState, useRecorder } from '../util/recorder';
+import { RecorderState, useRecorder } from '../util/hooks/useRecorder';
 import Button from './common/button';
 import ChannelIcon from './common/channelIcon';
 import { Input } from './common/input';

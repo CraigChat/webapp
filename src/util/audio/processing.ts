@@ -15,6 +15,7 @@ export function setUseNR(to: boolean): void {
 
 export async function startLocalProcessing() {
   if (!stream) await waitTill('userMediaReady');
+  logger.log('Starting local processing');
   sentRecently = true;
   setLastSentTime(performance.now() + 2500);
 
@@ -54,6 +55,7 @@ async function startWorker() {
   // Accept state updates
   capture.worker.onmessage = function (ev) {
     const msg = ev.data;
+
     if (msg.c === 'state') {
       // VAD state
       setRawVadOn(msg.rawVadOn);

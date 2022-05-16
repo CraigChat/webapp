@@ -47,6 +47,8 @@ interface AppState {
   rawVad: boolean;
   users: AppUser[];
   myId: number;
+  mediaReady: boolean;
+  deviceId?: string;
 
   connected: boolean;
   connectionType: 'record' | 'monitor' | null;
@@ -79,6 +81,7 @@ export class App extends Component<Record<string, never>, AppState> {
       rawVad: false,
       users: [],
       myId: -1,
+      mediaReady: false,
 
       connected: false,
       connectionType: null
@@ -130,6 +133,8 @@ export class App extends Component<Record<string, never>, AppState> {
         this.setState({ users });
       }
     });
+    addListener('app', 'userMediaReady', (deviceId) => this.setState({ mediaReady: true, deviceId }));
+    addListener('app', 'userMediaStopped', () => this.setState({ mediaReady: false }));
   }
 
   componentWillUnmount() {
@@ -190,6 +195,7 @@ export class App extends Component<Record<string, never>, AppState> {
           vad={this.state.vad}
           users={this.state.users}
           myId={this.state.myId}
+          mediaReady={this.state.mediaReady}
         />
       );
     else panel = <MonitoringPanel recording={this.state.recording} users={this.state.users} />;

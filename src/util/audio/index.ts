@@ -1,5 +1,5 @@
 import { bytesToRepr } from '..';
-import { addListener, emit } from '../events';
+import { addListener, emit, removeListener } from '../events';
 import { makeLogger } from '../logger';
 import { CaptureResult, createCapture } from './capture';
 import { bufferedAmount, connect, ConnectOptions, dataSock, errorHandler, flacInfo, ping, pingSock, setTransmitting } from './net';
@@ -19,6 +19,7 @@ const timeOffsetAdjPerFrame = 0.0002;
 const pongs: number[] = [];
 let sendSilence = 400;
 let sentZeroes = 999;
+let sentFlacInfo = false;
 export let capture: CaptureResult | null = null;
 export let lastSentTime = 0;
 export function setLastSentTime(to: number): void {
@@ -53,6 +54,12 @@ export async function stop() {
   await pingSock?.close();
 }
 
+export async function switchDevice(deviceId: string, flac = false, continuous = false) {
+  logger.log(`Switching to device ${deviceId}`);
+  await getStream(deviceId);
+  await startEncoder(flac, continuous);
+}
+
 // Handle pongs for our time offset
 addListener('audio', 'pong', (msg: DataView) => {
   const sent = msg.getFloat64(EnnuicastrParts.pong.clientTime, true);
@@ -77,15 +84,18 @@ addListener('audio', 'pong', (msg: DataView) => {
   }
 });
 
-export async function getStream() {
+export async function getStream(deviceId?: string) {
   // Remove active sources
   if (stream) {
     stream.getTracks().forEach((track) => track.stop());
+    stream = null;
+    logger.log('Stopped audio stream');
     emit('userMediaStopped');
   }
 
   stream = await navigator.mediaDevices.getUserMedia({
     audio: {
+      deviceId,
       autoGainControl: { ideal: false },
       echoCancellation: { ideal: false },
       noiseSuppression: { ideal: false },
@@ -97,20 +107,21 @@ export async function getStream() {
   const audioTrackSettings = stream.getAudioTracks()[0].getSettings();
   logger.log('Audio track settings: ', audioTrackSettings);
   context = new AudioContext({ latencyHint: 'playback', sampleRate: audioTrackSettings.sampleRate });
-  emit('userMediaReady');
+  emit('userMediaReady', audioTrackSettings.deviceId);
 }
 
 export async function startEncoder(flac = false, continuous = false) {
   const audioTrackSettings = stream!.getAudioTracks()[0].getSettings();
   const sampleRate = flac && context!.sampleRate === 44100 ? 44100 : 48000;
 
-  if (flac) {
+  if (flac && !sentFlacInfo) {
     // Notify server of sample rate
     const info = new DataView(new ArrayBuffer(EnnuicastrParts.info.length));
     info.setUint32(0, EnnuicastrId.INFO, true);
     info.setUint32(EnnuicastrParts.info.key, EnnuicastrInfo.SAMPLE_RATE, true);
     info.setUint32(EnnuicastrParts.info.value, sampleRate, true);
     flacInfo(info.buffer);
+    sentFlacInfo = true;
 
     // Set zero packet
     switch (sampleRate) {
@@ -164,6 +175,11 @@ export async function startEncoder(flac = false, continuous = false) {
 
     handlePackets(continuous);
   };
+
+  addListener('audio', 'userMediaStopped', () => {
+    removeListener('audio', 'userMediaStopped');
+    capture.disconnect();
+  });
 }
 
 // Once we've parsed new packets, we can do something with them

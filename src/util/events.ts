@@ -9,7 +9,7 @@ interface Events {
   speech: (userTrack: number | null, status: boolean) => void;
   user: (track: number, nick: string, status: boolean) => void;
   userExtra: (track: number, type: UserExtraType, data: string) => void;
-  userMediaReady: () => void;
+  userMediaReady: (deviceId?: string) => void;
   userMediaStopped: () => void;
   vad: (on: boolean) => void;
   rawVad: (on: boolean) => void;
