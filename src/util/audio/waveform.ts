@@ -22,7 +22,7 @@ let rmsPlaceholders = 0;
 let rootSum = 0;
 let lastPeak = 0;
 
-const peakWidth = 5;
+const peakWidth = 3;
 const log10 = Math.log(10);
 const log1036 = log10 * 3.6;
 
@@ -109,6 +109,7 @@ function refreshWave() {
       ctx.fillStyle = good ? vadColors[waveVADs[waveVADs.length - i - 1]] ?? '#18181b' : '#18181b';
       ctx.fillRect(Math.ceil(w / 100) * i, h / 2 - (waves[i] * h) / 2, Math.ceil(w / 100), waves[i] * h);
     }
+
     // Peak meter at the right
     let peak = (2 * Math.log(waveData[waveData.length - 1])) / log1036 + 1;
     if (peak < lastPeak) peak = (lastPeak * 3 + peak) / 4;

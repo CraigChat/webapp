@@ -41,7 +41,10 @@ export function isSafari(): boolean {
 }
 
 export async function createCapture(captureOptions: CaptureOptions): Promise<CaptureResult> {
-  if (typeof AudioWorkletNode !== 'undefined' && !isSafari()) {
+  if (isSafari() && captureOptions.stream) {
+    logger.log('Creating Safari-compatible script processor capture');
+    return captureSafari(captureOptions);
+  } else if (typeof AudioWorkletNode !== 'undefined') {
     logger.log('Creating AWP capture');
     return captureAWP(captureOptions);
   }
@@ -50,7 +53,6 @@ export async function createCapture(captureOptions: CaptureOptions): Promise<Cap
   return captureScriptProcessor(captureOptions);
 }
 
-// TODO safari capture
 export async function captureAWP({ context, stream, command, outStream }: CaptureOptions): Promise<CaptureResult> {
   await context.audioWorklet.addModule(awpUrl);
   const awn = new AudioWorkletNode(context, 'worker-processor');
@@ -143,6 +145,111 @@ export async function captureScriptProcessor({ command, context, stream, bufferS
     node,
     destination,
     disconnect
+  };
+}
+
+/* Safari-specific capture node, because it doesnt support having more than one criptProcessor on one audio device */
+export async function captureSafari({
+  stream,
+  command,
+  context,
+  outStream
+}: CaptureOptions & { context: AudioContext & { ecSP?: any } }): Promise<CaptureResult> {
+  /* Safari has major problems if you have more than one ScriptProcessor, so we only allow one per MediaStream, and overload it. */
+  if (!context.ecSP) context.ecSP = {};
+
+  // First, create a single ScriptProcessor for everybody
+  let sp: ScriptProcessorNode & {
+    ecUsers: any[];
+    ecCt: number;
+    ecSource: MediaStreamAudioSourceNode;
+    ecDestination: MediaStreamAudioDestinationNode;
+    ecDisconnect: () => unknown;
+  } = context.ecSP[stream.id];
+  if (!sp) {
+    // Choose the older name if necessary
+    let name = 'createScriptProcessor';
+    if (!(<any>context)[name]) name = 'createJavaScriptNode';
+
+    // Create our script processor with a compromise buffer size
+    sp = context.ecSP[stream.id] = (<any>context)[name](4096, 1, 1);
+
+    // Keep track of who's using it
+    sp.ecUsers = [];
+    sp.ecCt = 0;
+
+    // And call all the users when we get data
+    sp.onaudioprocess = function (ev: AudioProcessingEvent) {
+      sp.ecUsers.forEach(function (user: any) {
+        user.onaudioprocess(ev);
+      });
+    };
+
+    // Connect it
+    const mss = context.createMediaStreamSource(stream);
+    mss.connect(sp);
+    sp.ecSource = mss;
+    const msd = context.createMediaStreamDestination();
+    sp.connect(msd);
+    sp.ecDestination = msd;
+
+    // Prepare to disconnect it
+    sp.ecDisconnect = function () {
+      mss.disconnect(sp);
+      sp.disconnect(msd);
+      delete context.ecSP[stream.id];
+    };
+  }
+
+  // Now, add this user
+  let dead = false;
+  const node = {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+    onaudioprocess: function (ev: AudioProcessingEvent) {}
+  };
+  sp.ecUsers.push(node);
+  sp.ecCt++;
+  const awpWorker = new Worker(new URL('./awpWorker.ts', import.meta.url), { type: 'classic' });
+
+  // Need a channel to communicate from the ScriptProcessor to the worker
+  const mc = new MessageChannel();
+  awpWorker.postMessage(
+    {
+      port: mc.port2,
+      [command.c === 'encoder' ? 'inSampleRate' : 'sampleRate']: context.sampleRate,
+      ...command
+    },
+    [mc.port2]
+  );
+  node.onaudioprocess = createOnAudioProcess(mc.port1);
+
+  // Prepare to terminate
+  function disconnect() {
+    if (dead) return;
+    dead = true;
+
+    // Remove this node from the users list
+    for (let i = 0; i < sp.ecUsers.length; i++) {
+      if (sp.ecUsers[i] === node) {
+        sp.ecUsers.splice(i, 1);
+        sp.ecCt--;
+        break;
+      }
+    }
+
+    // Possibly break the chain
+    if (sp.ecCt === 0) sp.ecDisconnect();
+
+    awpWorker.terminate();
+  }
+
+  // Done!
+  return {
+    source: sp.ecSource,
+    worker: awpWorker,
+    node: null,
+    destination: outStream ? sp.ecDestination : null,
+    disconnect: disconnect
   };
 }
 
