@@ -27,8 +27,6 @@ export function setLastSentTime(to: number): void {
 }
 const logger = makeLogger('audio');
 
-// TODO use apples webkitAudioContext
-
 // Number of milliseconds to run the VAD for before/after talking
 export const vadExtension = 2000;
 export let vadOn = false;
@@ -106,7 +104,7 @@ export async function getStream(deviceId?: string) {
 
   const audioTrackSettings = stream.getAudioTracks()[0].getSettings();
   logger.log('Audio track settings: ', audioTrackSettings);
-  context = new AudioContext({ latencyHint: 'playback', sampleRate: audioTrackSettings.sampleRate });
+  context = new (window.AudioContext || (<any>window).webkitAudioContext)({ latencyHint: 'playback', sampleRate: audioTrackSettings.sampleRate });
   emit('userMediaReady', audioTrackSettings.deviceId);
 }
 
