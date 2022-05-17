@@ -1,5 +1,4 @@
 import { makeLogger } from '../logger';
-// import AWPWorker from './awpWorker.js?worker';
 
 const logger = makeLogger('capture');
 const awpUrl = '/awp.js?v=__GIT_REV__';
