@@ -1,5 +1,5 @@
 import { makeLogger } from '../logger';
-import AWPWorker from './awpWorker.js?worker';
+// import AWPWorker from './awpWorker.js?worker';
 
 const logger = makeLogger('capture');
 const awpUrl = '/awp.js?v=__GIT_REV__';
@@ -55,7 +55,7 @@ export async function createCapture(captureOptions: CaptureOptions): Promise<Cap
 export async function captureAWP({ context, stream, command, outStream }: CaptureOptions): Promise<CaptureResult> {
   await context.audioWorklet.addModule(awpUrl);
   const awn = new AudioWorkletNode(context, 'worker-processor');
-  const awpWorker = new AWPWorker({ type: 'classic' });
+  const awpWorker = new Worker(new URL('./awpWorker.ts', import.meta.url), { type: 'classic' });
 
   // Need a channel for them to communicate
   const mc = new MessageChannel();
@@ -102,7 +102,7 @@ export async function captureAWP({ context, stream, command, outStream }: Captur
 
 export async function captureScriptProcessor({ command, context, stream, bufferSize, outStream }: CaptureOptions): Promise<CaptureResult> {
   const node = context.createScriptProcessor(bufferSize || 4096);
-  const awpWorker = new AWPWorker({ type: 'classic' });
+  const awpWorker = new Worker(new URL('./awpWorker.ts', import.meta.url), { type: 'classic' });
 
   // Need a channel for them to communicate
   const mc = new MessageChannel();
