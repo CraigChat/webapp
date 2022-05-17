@@ -133,7 +133,7 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
             disabled={!mediaReady}
             items={devices}
             selected={device}
-            label="Microphone"
+            label={t('rec.microphone')}
             className="w-full"
             full
             onSelect={(device) => switchDevice(device.value, flac, continuous)}
