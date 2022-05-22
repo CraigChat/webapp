@@ -21,7 +21,7 @@ const langFlagMap: { [key: string]: IconifyIcon } = {
   test: testFlag,
   ru: ruFlag,
   uk: ukFlag,
-  be: belFlag,
+  bel: belFlag,
   tok: {
     width: 468,
     height: 617,
