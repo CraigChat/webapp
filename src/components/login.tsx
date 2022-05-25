@@ -12,13 +12,13 @@ import Spinner from './common/spinner';
 
 export const servers: DropdownItem[] = [
   {
-    title: (t) => t('server.craig'),
+    title: 'Craig / Alistair',
     value: 'craig',
     url: 'https://craig-ws.craig.chat',
     wsUrl: 'wss://craig-ws.craig.chat'
   },
   {
-    title: (t) => t('server.giarc'),
+    title: 'Giarc',
     value: 'giarc',
     url: 'https://giarc-ws.craig.chat',
     wsUrl: 'wss://giarc-ws.craig.chat'
@@ -39,7 +39,7 @@ if (location.search.includes('custom=')) {
   const domain = new URLSearchParams(location.search).get('custom');
   if (domain)
     servers.unshift({
-      title: (t) => t('server.custom'),
+      title: (t) => `${t('server.custom')} (${domain})`,
       value: 'custom',
       url: `https://${domain}`,
       wsUrl: `wss://${domain}`
