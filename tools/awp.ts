@@ -1,3 +1,7 @@
+import { makeLogger } from '../src/util/logger';
+
+const logger = makeLogger('awp');
+
 declare const AudioWorkletProcessor: {
   prototype: {
     readonly port: MessagePort;
@@ -37,7 +41,7 @@ class WorkerProcessor extends AudioWorkletProcessor {
       const msg = ev.data;
       switch (msg.c) {
         case 'workerPort':
-          console.log('AWP: Got worker port');
+          logger.log('Got worker port');
           this.workerPort = msg.p;
           this.workerPort!.onmessage = (ev) => {
             // Message-passing data receipt
@@ -70,7 +74,7 @@ class WorkerProcessor extends AudioWorkletProcessor {
     // SETUP
 
     if (!this.incoming) {
-      console.log('AWP: Setting up incoming packets, using shared memory:', this.canShared);
+      logger.log('Setting up incoming packets, using shared memory:', this.canShared);
       const chans = inputs[0].length;
       this.incoming = [];
       for (let i = 0; i < chans; i++)
