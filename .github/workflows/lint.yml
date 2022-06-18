@@ -8,7 +8,7 @@ on:
       - ".eslintignore"
       - ".github/workflows/lint.yml"
       - "package.json"
-      - "pnpm-lock.yaml"
+      - "yarn.lock"
   pull_request_target:
   workflow_dispatch:
 
