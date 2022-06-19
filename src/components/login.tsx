@@ -14,14 +14,14 @@ export const servers: DropdownItem[] = [
   {
     title: 'Craig / Alistair',
     value: 'craig',
-    url: 'https://craig-ws.craig.chat',
-    wsUrl: 'wss://craig-ws.craig.chat'
+    url: 'https://craig-ws.craig.horse',
+    wsUrl: 'wss://craig-ws.craig.horse'
   },
   {
     title: 'Giarc',
     value: 'giarc',
-    url: 'https://giarc-ws.craig.chat',
-    wsUrl: 'wss://giarc-ws.craig.chat'
+    url: 'https://giarc-ws.craig.horse',
+    wsUrl: 'wss://giarc-ws.craig.horse'
   }
 ];
 
