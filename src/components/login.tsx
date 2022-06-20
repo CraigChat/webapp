@@ -122,7 +122,7 @@ export function LoginPanel({
         </Button>
       </div>
       <div class="flex gap-4 flex-wrap justify-center">
-        {/* <LinkButton name={t('login.what')} href="/" /> */}
+        <LinkButton name={t('login.what')} href="https://craig.chat/docs/webapp/" />
         <LinkButton name={t('login.home')} href="https://craig.chat/" />
         <LinkButton name={t('login.privacy')} href="https://craig.chat/privacy" />
         {/* <LinkButton name={t('login.tos')} href="/" /> */}
