@@ -30,7 +30,7 @@
     "@fontsource/ubuntu-mono": "^4.5.10",
     "@headlessui/react": "1.5.0",
     "@iconify-icons/bi": "^1.2.5",
-    "@iconify-icons/ic": "^1.2.7",
+    "@iconify-icons/ic": "^1.2.8",
     "@iconify-icons/twemoji": "^1.2.5",
     "@iconify/react": "^3.2.1",
     "@preact/preset-vite": "^2.3.0",
