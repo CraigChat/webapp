@@ -22,7 +22,6 @@ export const logger = makeLogger('app');
 export interface AppUser {
   id: number;
   nick: string;
-  speaking: boolean;
   avatar?: string;
 }
 
@@ -46,6 +45,7 @@ interface AppState {
   vad: boolean;
   rawVad: boolean;
   users: AppUser[];
+  usersSpeaking: { [id: number]: boolean };
   myId: number;
   mediaReady: boolean;
   deviceId?: string;
@@ -80,6 +80,7 @@ export class App extends Component<Record<string, never>, AppState> {
       vad: false,
       rawVad: false,
       users: [],
+      usersSpeaking: {},
       myId: -1,
       mediaReady: false,
 
@@ -100,11 +101,12 @@ export class App extends Component<Record<string, never>, AppState> {
       // if (!user && speaking) updateWaveRetroactive();
       if (user !== null) {
         if (!this.state.users.find((u) => u.id === user)) return;
-        const users = this.state.users.map((u) => {
-          if (u.id === user) return { ...u, speaking };
-          return u;
+        this.setState({
+          usersSpeaking: {
+            ...this.state.usersSpeaking,
+            [user]: speaking
+          }
         });
-        this.setState({ users });
       }
     });
     addListener('app', 'user', (track, nick, status) => {
@@ -120,7 +122,7 @@ export class App extends Component<Record<string, never>, AppState> {
       // User connected
       const otherUsers = this.state.users.filter((user) => user.id !== track);
       this.setState({
-        users: [...otherUsers, { id: track, nick, speaking: false }]
+        users: [...otherUsers, { id: track, nick }]
       });
     });
     addListener('app', 'userExtra', (track, type, data) => {
@@ -194,11 +196,12 @@ export class App extends Component<Record<string, never>, AppState> {
           continuous={this.state.continuous}
           vad={this.state.vad}
           users={this.state.users}
+          usersSpeaking={this.state.usersSpeaking}
           myId={this.state.myId}
           mediaReady={this.state.mediaReady}
         />
       );
-    else panel = <MonitoringPanel recording={this.state.recording} users={this.state.users} />;
+    else panel = <MonitoringPanel recording={this.state.recording} users={this.state.users} usersSpeaking={this.state.usersSpeaking} />;
 
     return (
       <Translation>

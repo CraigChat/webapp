@@ -25,12 +25,24 @@ interface RecordingPanelProps {
   continuous: boolean;
   vad: boolean;
   users: AppUser[];
+  usersSpeaking: { [id: number]: boolean };
   myId: number;
   mediaReady: boolean;
   deviceId?: string;
 }
 
-export function RecordingPanel({ recording, username, flac, continuous, vad, users, myId, mediaReady, deviceId }: RecordingPanelProps) {
+export function RecordingPanel({
+  recording,
+  username,
+  flac,
+  continuous,
+  vad,
+  users,
+  usersSpeaking,
+  myId,
+  mediaReady,
+  deviceId
+}: RecordingPanelProps) {
   const { t } = useTranslation();
   const [noiseSuppression, setNoiseSuppression] = useSyncedState(false, 'craigWebapp.noiseSuppression');
   const [mute, setMute] = useState(false);
@@ -84,10 +96,13 @@ export function RecordingPanel({ recording, username, flac, continuous, vad, use
                   {user.avatar ? (
                     <img
                       src={user.avatar}
-                      class={clsx('w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow transition-all border-green-500', user.speaking ? 'border-4' : '')}
+                      class={clsx(
+                        'w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow transition-all border-green-500',
+                        usersSpeaking[user.id] ? 'border-4' : ''
+                      )}
                     />
                   ) : (
-                    <div class={clsx('rounded-full shadow p-3 transition-colors', user.speaking ? 'bg-green-500' : 'bg-zinc-600')}>
+                    <div class={clsx('rounded-full shadow p-3 transition-colors', usersSpeaking[user.id] ? 'bg-green-500' : 'bg-zinc-600')}>
                       <Icon icon={micIcon} className="w-8 h-8 sm:w-10 sm:h-10" />
                     </div>
                   )}

@@ -11,9 +11,10 @@ import { PanelHeader } from './common/panelHeader';
 interface MonitoringPanelProps {
   recording: Recording;
   users: AppUser[];
+  usersSpeaking: { [id: number]: boolean };
 }
 
-export function MonitoringPanel({ recording, users }: MonitoringPanelProps) {
+export function MonitoringPanel({ recording, users, usersSpeaking }: MonitoringPanelProps) {
   const { t } = useTranslation();
 
   return (
@@ -28,7 +29,10 @@ export function MonitoringPanel({ recording, users }: MonitoringPanelProps) {
             return (
               <div
                 key={user.id}
-                class={clsx('flex items-center w-full gap-2 p-3 rounded transition-colors bg-opacity-60', user.speaking ? 'bg-green-500' : '')}
+                class={clsx(
+                  'flex items-center w-full gap-2 p-3 rounded transition-colors bg-opacity-60',
+                  usersSpeaking[user.id] ? 'bg-green-500' : ''
+                )}
               >
                 {user.avatar ? (
                   <img src={user.avatar} class="w-12 h-12 rounded-full shadow" />
@@ -39,7 +43,7 @@ export function MonitoringPanel({ recording, users }: MonitoringPanelProps) {
                 )}
                 <span class="sm:text-xl">
                   <span class="font-medium">{username}</span>
-                  <span class={clsx('transition-opacity', user.speaking ? 'opacity-75' : 'opacity-50')}>
+                  <span class={clsx('transition-opacity', usersSpeaking[user.id] ? 'opacity-75' : 'opacity-50')}>
                     {discrim === 'web' ? ` ${t('rec.viaWeb')}` : `#${discrim}`}
                   </span>
                 </span>
