@@ -306,10 +306,10 @@
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-icons/ic@^1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@iconify-icons/ic/-/ic-1.2.8.tgz#12a2fd59344149e54e54a19d58ff33a3aa7bd775"
-  integrity sha512-6w+nMP41gW2iKYMM0BeC66diQiyZlpW6tXHF68GRQKF6SUo1lCWvrMc/pXI3/44MH2Bb/KVP+D2Q6+Wu7S1bOg==
+"@iconify-icons/ic@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@iconify-icons/ic/-/ic-1.2.9.tgz#613f4fb33290ad90da15dbf3ea7812094a95c391"
+  integrity sha512-coKatXO3b6JMGL8YZKDL7OfG7WHhK/pmWmdFUxuef66E+NlTSIgw6yUpcj8jdCuTZsKAyX6+GCHevVzrOJXJ8A==
   dependencies:
     "@iconify/types" "*"
 
