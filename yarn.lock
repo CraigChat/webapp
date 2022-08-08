@@ -270,10 +270,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.5.10.tgz#a2ec4a7c251bf0162b6fdf9cad480c54587daabe"
   integrity sha512-5FSyCRQ2ylL9aoxdjasNvEvTeaVStPuq1wHjOStvrKenv7XDpjEPr/TfW3jJyJ+yhOeZPl4qR96y7bFBX+uBzQ==
 
-"@fontsource/red-hat-text@^4.5.9":
-  version "4.5.9"
-  resolved "https://registry.yarnpkg.com/@fontsource/red-hat-text/-/red-hat-text-4.5.9.tgz#08c095082ddc5bdd638c99d7b770717b4af6de8e"
-  integrity sha512-7jBq3vSTtZt1kJpwRt04EFfAGepY2E9eq7p09zyD4Ibx0rItBy/uoF/6Wmx/1heJurbUxxcBHY/6dKNxBRpb4g==
+"@fontsource/red-hat-text@^4.5.10":
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/@fontsource/red-hat-text/-/red-hat-text-4.5.10.tgz#50db2d7b552417eaec3c9df5ed330cc58c500c35"
+  integrity sha512-H+KM5fAmpWyCfbI5cWGLeRP2xOIIysjwFSxW8INdtLgEOYUGBbEVxaieUIXdM/myMRD7ykSDmT4dn60Of27MQg==
 
 "@fontsource/ubuntu-mono@^4.5.10":
   version "4.5.10"
