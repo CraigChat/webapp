@@ -280,10 +280,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/red-hat-text/-/red-hat-text-4.5.10.tgz#50db2d7b552417eaec3c9df5ed330cc58c500c35"
   integrity sha512-H+KM5fAmpWyCfbI5cWGLeRP2xOIIysjwFSxW8INdtLgEOYUGBbEVxaieUIXdM/myMRD7ykSDmT4dn60Of27MQg==
 
-"@fontsource/ubuntu-mono@^4.5.10":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@fontsource/ubuntu-mono/-/ubuntu-mono-4.5.10.tgz#beeac83a53beb501a5ec66086658cd2d4366aa3a"
-  integrity sha512-r6RDlPjlFoBz8cH1+qUQ8Rkx1FI0L/sk4NchWjc5RTYT5rroDIUnI420oK+EhDo3f01gU38DJvL1phPKDw3A3Q==
+"@fontsource/ubuntu-mono@^4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/ubuntu-mono/-/ubuntu-mono-4.5.11.tgz#a4a68dc8213b252fc8bef500f60a67e269e6d5ae"
+  integrity sha512-IqqJKgp9Xc8tFeCIHPQuFbiKZC8tBU2hdIllwX2pryYfkl8/w4DuScFq9fPMfy1Mp4raFVcJALvOMOfRXkLp/w==
 
 "@headlessui/react@1.5.0":
   version "1.5.0"
