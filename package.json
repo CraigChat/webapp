@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@fontsource/lexend": "^4.5.10",
-    "@fontsource/red-hat-text": "^4.5.9",
+    "@fontsource/red-hat-text": "^4.5.10",
     "@fontsource/ubuntu-mono": "^4.5.10",
     "@headlessui/react": "1.5.0",
     "@iconify-icons/bi": "^1.2.7",
