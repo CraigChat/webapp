@@ -22,7 +22,7 @@
     "preact": "^10.10.1",
     "react-tippy": "^1.4.0",
     "sass": "^1.54.3",
-    "tailwindcss": "^3.1.7"
+    "tailwindcss": "^3.1.8"
   },
   "devDependencies": {
     "@fontsource/lexend": "^4.5.10",
