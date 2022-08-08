@@ -270,10 +270,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@fontsource/lexend@^4.5.10":
-  version "4.5.10"
-  resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.5.10.tgz#a2ec4a7c251bf0162b6fdf9cad480c54587daabe"
-  integrity sha512-5FSyCRQ2ylL9aoxdjasNvEvTeaVStPuq1wHjOStvrKenv7XDpjEPr/TfW3jJyJ+yhOeZPl4qR96y7bFBX+uBzQ==
+"@fontsource/lexend@^4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/lexend/-/lexend-4.5.11.tgz#06bd2ca96ba383bd54be94579e9b9721a57a4af9"
+  integrity sha512-4xjVmT7h+KWQntK86RXdrGAcX6sZbtbMRZndvPN/STLPfbhlgzgsx5K87wTu1dSPZbipdgGT5YHCtM0QX3qP5w==
 
 "@fontsource/red-hat-text@^4.5.10":
   version "4.5.10"
