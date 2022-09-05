@@ -25,7 +25,7 @@
     "tailwindcss": "^3.1.8"
   },
   "devDependencies": {
-    "@fontsource/lexend": "^4.5.11",
+    "@fontsource/lexend": "^4.5.12",
     "@fontsource/red-hat-text": "^4.5.10",
     "@fontsource/ubuntu-mono": "^4.5.11",
     "@headlessui/react": "1.5.0",
