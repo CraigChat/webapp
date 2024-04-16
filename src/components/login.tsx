@@ -20,8 +20,8 @@ export const servers: DropdownItem[] = [
   {
     title: 'Giarc',
     value: 'giarc',
-    url: 'https://giarc-ws.craig.horse',
-    wsUrl: 'wss://giarc-ws.craig.horse'
+    url: 'https://giarc.craig.media',
+    wsUrl: 'wss://giarc.craig.media'
   }
 ];
 
