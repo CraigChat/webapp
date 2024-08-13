@@ -26,5 +26,8 @@ export default defineConfig({
       'react/jsx-runtime': 'preact/jsx-runtime'
     }
   },
+  server: {
+    port: 5000,
+  },
   plugins: [preact()]
 });
