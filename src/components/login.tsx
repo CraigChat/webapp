@@ -14,8 +14,8 @@ export const servers: DropdownItem[] = [
   {
     title: 'Craig / Alistair',
     value: 'craig',
-    url: 'https://craig-ws.craig.horse',
-    wsUrl: 'wss://craig-ws.craig.horse'
+    url: 'https://main.craig.media',
+    wsUrl: 'wss://main.craig.media'
   },
   {
     title: 'Giarc',
