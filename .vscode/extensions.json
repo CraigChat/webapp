@@ -1,8 +1,7 @@
 {
   "recommendations": [
-    "DeepScan.vscode-deepscan",
     "formulahendry.auto-rename-tag",
-    "EditorConfig.EditorConfig",
+    "editorconfig.editorconfig",
     "bradlc.vscode-tailwindcss",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"

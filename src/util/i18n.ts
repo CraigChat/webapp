@@ -8,6 +8,7 @@ import esFlag from '@iconify-icons/twemoji/flag-for-spain';
 import trFlag from '@iconify-icons/twemoji/flag-for-turkey';
 import ukFlag from '@iconify-icons/twemoji/flag-for-ukraine';
 import enFlag from '@iconify-icons/twemoji/flag-for-united-states';
+import jaFlag from '@iconify-icons/twemoji/flag-for-japan';
 import testFlag from '@iconify-icons/twemoji/test-tube';
 import unknownFlag from '@iconify-icons/twemoji/white-question-mark';
 import i18n from 'i18next';
@@ -26,6 +27,7 @@ const langFlagMap: { [key: string]: IconifyIcon } = {
   be: beFlag,
   fr: frFlag,
   tr: trFlag,
+  ja: jaFlag,
   tok: {
     width: 468,
     height: 617,
